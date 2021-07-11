@@ -1,6 +1,8 @@
 package com.erevzin.searchengine.persistance;
 
-import com.erevzin.searchengine.logic.WikiPageIndexer;
+import com.erevzin.searchengine.logic.TermIndexer;
+import com.erevzin.searchengine.logic.WikiPageParser;
+import com.erevzin.searchengine.model.WikiPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -9,26 +11,27 @@ import javax.annotation.PostConstruct;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
 public class DbSeeder {
 	
 	private final WikiPageCrudRepository wikiPageCrudRepository;
-	private final TermCrudRepository termCrudRepository;
-	private final WikiPageIndexer wikiPageIndexer;
+	private final WikiPageParser wikiPageParser;
+	private final TermIndexer termIndexer;
 
 	@Autowired
-	public DbSeeder(WikiPageCrudRepository wikiPageCrudRepository, TermCrudRepository termCrudRepository, WikiPageIndexer wikiPageIndexer) {
+	public DbSeeder(WikiPageCrudRepository wikiPageCrudRepository , WikiPageParser wikiPageParser, TermIndexer termIndexer) {
 		this.wikiPageCrudRepository = wikiPageCrudRepository;
-		this.termCrudRepository = termCrudRepository;
-		this.wikiPageIndexer = wikiPageIndexer;
+		this.wikiPageParser = wikiPageParser;
+		this.termIndexer = termIndexer;
 	}
 
 	@PostConstruct
-	public void populateWikiPagesDb() throws Exception {
+	public void populateWikiPagesDb() {
 		// input file
-		Path ipPath = Paths.get("wiki_data.txt");
+		Path ipPath = Paths.get("wiki_data_small_semple.txt");
 
 		Flux<String> linesFlux = Flux.using(
 				() -> Files.lines(ipPath),
@@ -38,8 +41,12 @@ public class DbSeeder {
 
 		linesFlux
 				.subscribe(i -> {
-					wikiPageCrudRepository.save(wikiPageIndexer.index(i+""));
-					System.out.println("Observer-1 : " + i);
+					WikiPage wikiPage = wikiPageParser.parseLine(i+"");
+					List<String> tokens = wikiPageParser.parseTokens(wikiPage.getContent());
+					wikiPageCrudRepository.save(wikiPage);
+					tokens.stream().forEach(token -> termIndexer.indexTerm(token, wikiPage.getWikiPageId()));
+					System.out.println(wikiPage.getWikiPageId() + " --- " + wikiPage.getContent());
+
 				});
 
 	}

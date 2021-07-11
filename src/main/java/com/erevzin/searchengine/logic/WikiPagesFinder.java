@@ -1,9 +1,11 @@
 package com.erevzin.searchengine.logic;
 
-import reactor.core.publisher.Flux;
+import com.erevzin.searchengine.model.WikiPage;
+
+import java.util.List;
 
 public interface WikiPagesFinder {
 
-    Flux<String> findWikiPages(String query);
+    List<WikiPage> findWikiPages(String query);
 
 }

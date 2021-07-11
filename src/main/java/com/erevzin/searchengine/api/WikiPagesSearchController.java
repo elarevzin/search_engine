@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/wiki-pages")
@@ -24,12 +25,8 @@ public class WikiPagesSearchController {
     }
 
     @GetMapping("/{query}")
-    private ArrayList<WikiPage> getWikiPagesByQuery(@PathVariable String query) {
-        ArrayList<WikiPage> wikiPages = new ArrayList();
-        wikiPageCrudRepository.findAll()
-                .doOnNext(wikiPage -> addWikiPage(wikiPages, wikiPage))
-                .subscribe();
-        return wikiPages;
+    private List<WikiPage> getWikiPagesByQuery(@PathVariable String query) {
+        return wikiPagesFinder.findWikiPages(query);
     }
 
     private boolean addWikiPage(ArrayList<WikiPage> wikiPages, WikiPage wikiPage) {

@@ -1,21 +1,23 @@
 package com.erevzin.searchengine.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 @Document
 public class Term {
 
     @Id
+    @Indexed
     private String term;
-    private List<String> wikiPages;
+    private Set<String> wikiPages;
 
     public Term() {
     }
 
-    public Term(String term, List<String> wikiPages) {
+    public Term(String term, Set<String> wikiPages) {
         this.term = term;
         this.wikiPages = wikiPages;
     }
@@ -28,11 +30,11 @@ public class Term {
         this.term = term;
     }
 
-    public List<String> getWikiPages() {
+    public Set<String> getWikiPages() {
         return wikiPages;
     }
 
-    public void setWikiPages(List<String> wikiPages) {
+    public void setWikiPages(Set<String> wikiPages) {
         this.wikiPages = wikiPages;
     }
 }
