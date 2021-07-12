@@ -30,9 +30,7 @@ public class WikiPagesFinderImpl implements WikiPagesFinder {
     public List<WikiPage> findWikiPages(String queryString){
         List<WikiPage> wikiPagesFound = new ArrayList<>();
         WikiPageQuery query = queryBuilder.buildQuery(queryString);
-        if(query.getQueryType().equals(QueryType.NONE)){
-            return wikiPagesFound;
-        }
+
         List<String> queryTerms = query.getQueryTerms();
         List<String> wikiPagesIdsFound = new ArrayList<>();
 
