@@ -12,8 +12,6 @@ public class TokenParserImpl implements TokenParser {
 
     @Override
     public String parseToken(String token) {
-        //TODO: clean from characters like ',', '.', '(', ')', '!', '?' etc. - parse the token to index only pure words
-
         Matcher idContentSeparatorMatcher = charactersToExcludePattern.matcher(token);
         while (idContentSeparatorMatcher.find()) {
             token = token.replace(idContentSeparatorMatcher.group(), EMPTY);

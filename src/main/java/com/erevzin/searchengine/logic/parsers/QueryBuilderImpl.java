@@ -14,7 +14,7 @@ import static org.apache.logging.log4j.util.Strings.EMPTY;
 @Service
 public class QueryBuilderImpl implements QueryBuilder {
 
-    private static final String INVALID_QUERY = "Not a valid query. Either AND or OR allowed";
+    public static final String INVALID_QUERY = "Not a valid query. Either AND or OR allowed";
 
     @Override
     public WikiPageQuery buildQuery(String queryString) {

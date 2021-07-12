@@ -16,13 +16,13 @@ import java.util.stream.Stream;
 @Service
 public class WikiPageCacheLoader {
 	
-	private final WikiPageCacheProvider wikiPageCacheProvider;
+	private final WikiPageCacheAccessor wikiPageCacheAccessor;
 	private final WikiPageParser wikiPageParser;
 	private final IndexerInCache indexerInCache;
 
 	@Autowired
-	public WikiPageCacheLoader(WikiPageCacheProvider wikiPageCacheProvider, WikiPageParser wikiPageParser, IndexerInCache indexerInCache) {
-		this.wikiPageCacheProvider = wikiPageCacheProvider;
+	public WikiPageCacheLoader(WikiPageCacheAccessor wikiPageCacheAccessor, WikiPageParser wikiPageParser, IndexerInCache indexerInCache) {
+		this.wikiPageCacheAccessor = wikiPageCacheAccessor;
 		this.wikiPageParser = wikiPageParser;
 		this.indexerInCache = indexerInCache;
 	}
@@ -30,7 +30,7 @@ public class WikiPageCacheLoader {
 	@PostConstruct
 	public void populateWikiPagesCache() {
 		// input file
-		Path ipPath = Paths.get("wiki_data.txt");
+		Path ipPath = Paths.get("wiki_data_small_semple.txt");
 
 		Flux<String> linesFlux = Flux.using(
 				() -> Files.lines(ipPath),
