@@ -6,7 +6,6 @@ import com.erevzin.searchengine.model.WikiPageQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import static com.erevzin.searchengine.utilities.Patterns.*;
@@ -18,11 +17,9 @@ public class QueryBuilderImpl implements QueryBuilder {
     @Override
     public WikiPageQuery buildQuery(String queryString) {
         WikiPageQuery wikiPageQuery = new WikiPageQuery();
-        Matcher andQueryMatcher = andQueryPattern.matcher(queryString);
-        Matcher orQueryMatcher = orQueryPattern.matcher(queryString);
 
-        boolean andFound = andQueryMatcher.find();
-        boolean orFound = orQueryMatcher.find();
+        boolean andFound = andQueryPattern.matcher(queryString).find();
+        boolean orFound = orQueryPattern.matcher(queryString).find();
 
         queryString = handleQueryByType(queryString, wikiPageQuery, andFound, orFound);
 

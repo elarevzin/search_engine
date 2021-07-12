@@ -34,9 +34,8 @@ public class WikiPagesFinderImpl implements WikiPagesFinder {
 
     public List<WikiPageDTO> findWikiPages(String queryString){
         WikiPageQuery query = queryBuilder.buildQuery(queryString);
-        List<String> queryTerms = query.getQueryTerms();
-        Set<String> wikiPagesIdsFound = handleFirstTerm(queryTerms);
-        wikiPagesIdsFound = buildWikiPageIdsList(query, queryTerms, wikiPagesIdsFound);
+        Set<String> wikiPagesIdsFound = handleFirstTerm(query.getQueryTerms());
+        wikiPagesIdsFound = buildWikiPageIdsList(query, query.getQueryTerms(), wikiPagesIdsFound);
 
         return getWikiPagesFromCache(wikiPagesIdsFound);
     }

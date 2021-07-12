@@ -40,40 +40,4 @@ public class WikiPageParserImpl implements WikiPageParser {
         return tokens.stream().map(tokenParser::parseToken).collect(Collectors.toList());
     }
 
-
-//    public String decodeUtf16(String wikiPageContent) {
-//        Matcher utf16StartMatcher = utf16StartPattern.matcher(wikiPageContent);
-//        if(!utf16StartMatcher.find()){
-//            return wikiPageContent;
-//        }
-//
-//        if(utf16StartMatcher.end()+4 >= wikiPageContent.length()-1){
-//            return wikiPageContent;
-//        }
-//        String utf16StrToDecode = wikiPageContent.substring(utf16StartMatcher.start(), utf16StartMatcher.end()+3);
-//        wikiPageContent.replace(utf16StrToDecode, decode(wikiPageContent, utf16StrToDecode));
-//
-//        while (utf16StartMatcher.find()) {
-//            if(utf16StartMatcher.end()+4 >= wikiPageContent.length()-1){
-//                return wikiPageContent;
-//            }
-//            utf16StrToDecode = wikiPageContent.substring(utf16StartMatcher.start(), utf16StartMatcher.end()+3);
-//            wikiPageContent = wikiPageContent.replace(utf16StrToDecode, decode(wikiPageContent, utf16StrToDecode));
-//        }
-//        return wikiPageContent;
-//    }
-//
-//    private String decode(String wikiPageContent, String utf16StrToDecode) {
-//        String decoded = utf16StrToDecode;
-//        try {
-//            byte[] bytesInUtf16 = utf16StrToDecode.getBytes(UTF_8);
-//            decoded = new String(bytesInUtf16, UTF_16);
-//        } catch (UnsupportedEncodingException e) {
-//            //TODO: add proper logging
-//            System.out.println(wikiPageContent + " could not be parsed." + e.getMessage());
-//        } finally {
-//            return decoded;
-//        }
-//    }
-
 }
