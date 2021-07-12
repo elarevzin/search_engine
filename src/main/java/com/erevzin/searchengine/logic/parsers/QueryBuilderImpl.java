@@ -24,17 +24,7 @@ public class QueryBuilderImpl implements QueryBuilder {
         boolean andFound = andQueryMatcher.find();
         boolean orFound = orQueryMatcher.find();
 
-        if(andFound){
-            wikiPageQuery.setQueryType(QueryType.AND);
-            queryString = queryString.replace(andQueryPattern.toString(), EMPTY);
-        } else {
-            if(orFound) {
-                wikiPageQuery.setQueryType(QueryType.OR);
-                queryString = queryString.replace(orQueryPattern.toString(), EMPTY);
-            } else {
-                wikiPageQuery.setQueryType(QueryType.NONE);
-            }
-        }
+        queryString = handleQueryByType(queryString, wikiPageQuery, andFound, orFound);
 
         if(andFound && orFound){
             throw new InvalidWikiPageQueryException("Not a valid query. Either AND or OR allowed");
@@ -44,7 +34,16 @@ public class QueryBuilderImpl implements QueryBuilder {
         return wikiPageQuery;
     }
 
-    private void validate(String queryString, Matcher andQueryMatcher, Matcher orQueryMatcher) {
-        //TODO: add query String validations
+    private String handleQueryByType(String queryString, WikiPageQuery wikiPageQuery, boolean andFound, boolean orFound) {
+        if(andFound){
+            wikiPageQuery.setQueryType(QueryType.AND);
+            queryString = queryString.replace(andQueryPattern.toString(), EMPTY);
+        } else if(orFound) {
+            wikiPageQuery.setQueryType(QueryType.OR);
+            queryString = queryString.replace(orQueryPattern.toString(), EMPTY);
+        } else {
+            wikiPageQuery.setQueryType(QueryType.NONE);
+        }
+        return queryString;
     }
 }
