@@ -1,7 +1,5 @@
 package com.erevzin.searchengine.model;
 
-import com.erevzin.searchengine.logic.QueryType;
-
 import java.util.List;
 
 public class WikiPageQuery {

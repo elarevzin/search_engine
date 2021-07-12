@@ -1,23 +1,16 @@
 package com.erevzin.searchengine.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Set;
 
-@Document(collection = "terms")
-public class Term {
+public class WikiPageTerm {
 
-    @Id
-    @Indexed
     private String term;
     private Set<String> wikiPages;
 
-    public Term() {
+    public WikiPageTerm() {
     }
 
-    public Term(String term, Set<String> wikiPages) {
+    public WikiPageTerm(String term, Set<String> wikiPages) {
         this.term = term;
         this.wikiPages = wikiPages;
     }

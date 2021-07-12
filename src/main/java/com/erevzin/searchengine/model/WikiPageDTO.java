@@ -1,21 +1,14 @@
 package com.erevzin.searchengine.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class WikiPageDTO {
 
-@Document(collection = "wiki_pages")
-public class WikiPage {
-
-    @Id
-    @Indexed
     private String wikiPageId;
     private String content;
 
-    public WikiPage() {
+    public WikiPageDTO() {
     }
 
-    public WikiPage(String wikiPageId, String content) {
+    public WikiPageDTO(String wikiPageId, String content) {
         this.wikiPageId = wikiPageId;
         this.content = content;
     }
