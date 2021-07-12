@@ -24,6 +24,9 @@ public class QueryBuilderImpl implements QueryBuilder {
         } else if(orQueryMatcher.find()) {
             wikiPageQuery.setQueryType(QueryType.OR);
             queryString = queryString.replace(orQueryPattern.toString(), EMPTY);
+        } else {
+            wikiPageQuery.setQueryType(QueryType.NONE);
+
         }
 
         wikiPageQuery.setQueryTerms(Arrays.asList(spacesPattern.split(queryString)));
