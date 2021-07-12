@@ -1,6 +1,6 @@
-package com.erevzin.searchengine.logic;
+package com.erevzin.searchengine.logic.parsers;
 
-import com.erevzin.searchengine.api.WikiPageDTO;
+import com.erevzin.searchengine.model.WikiPageDTO;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.erevzin.searchengine.logic;
+package com.erevzin.searchengine.logic.parsers;
 
 import com.erevzin.searchengine.model.WikiPageQuery;
 

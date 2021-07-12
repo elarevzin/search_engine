@@ -14,5 +14,6 @@ public class Patterns {
     public static Pattern utf16StartPattern = Pattern.compile("\\\\u");
     public static Pattern andQueryPattern = Pattern.compile("AND");
     public static Pattern orQueryPattern = Pattern.compile("OR");
+    public static Pattern charactersToExcludePattern = Pattern.compile("[,.()!?]");
 
 }

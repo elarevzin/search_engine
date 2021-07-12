@@ -1,6 +1,6 @@
 package com.erevzin.searchengine.logic.cache;
 
-import com.erevzin.searchengine.logic.TokenParser;
+import com.erevzin.searchengine.logic.parsers.TokenParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,10 +28,9 @@ public class IndexerInCacheImpl implements IndexerInCache {
         if(excludedTokens.contains(token)){ //TODO: need to change to some more sophisticated mechanism, e.g. not to index by relative frequency
             return;
         }
-        String parsedToken = tokenParser.parseToken(token);
-        List<String> wikiPageIds = wikiPageCacheProvider.getTermsCache().asMap().getOrDefault(parsedToken, new ArrayList<>());
+        List<String> wikiPageIds = wikiPageCacheProvider.getTermsCache().asMap().getOrDefault(token, new ArrayList<>());
         wikiPageIds.add(wikiPageId);
-        wikiPageCacheProvider.getTermsCache().asMap().put(parsedToken, wikiPageIds);
+        wikiPageCacheProvider.getTermsCache().asMap().put(token, wikiPageIds);
     }
 
     @Override

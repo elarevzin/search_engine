@@ -1,7 +1,7 @@
 package com.erevzin.searchengine.logic.cache;
 
-import com.erevzin.searchengine.api.WikiPageDTO;
-import com.erevzin.searchengine.logic.WikiPageParser;
+import com.erevzin.searchengine.model.WikiPageDTO;
+import com.erevzin.searchengine.logic.parsers.WikiPageParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -30,7 +30,7 @@ public class WikiPageCacheLoader {
 	@PostConstruct
 	public void populateWikiPagesCache() {
 		// input file
-		Path ipPath = Paths.get("wiki_data_small_semple.txt");
+		Path ipPath = Paths.get("wiki_data.txt");
 
 		Flux<String> linesFlux = Flux.using(
 				() -> Files.lines(ipPath),

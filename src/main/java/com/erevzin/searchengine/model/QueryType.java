@@ -1,4 +1,4 @@
-package com.erevzin.searchengine.logic;
+package com.erevzin.searchengine.model;
 
 public enum QueryType {
     AND,

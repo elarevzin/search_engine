@@ -1,4 +1,4 @@
-package com.erevzin.searchengine.api;
+package com.erevzin.searchengine.model;
 
 public class WikiPageDTO {
 
