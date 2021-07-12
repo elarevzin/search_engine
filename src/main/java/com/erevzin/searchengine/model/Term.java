@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-@Document
+@Document(collection = "terms")
 public class Term {
 
     @Id
