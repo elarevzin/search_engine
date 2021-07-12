@@ -1,12 +1,12 @@
 package com.erevzin.searchengine.logic;
 
-import com.erevzin.searchengine.model.WikiPage;
+import com.erevzin.searchengine.api.WikiPageDTO;
 
 import java.util.List;
 
 public interface WikiPageParser {
 
-    WikiPage parseLine(String line);
+    WikiPageDTO parseLine(String line);
 
     List<String> parseTokens(String wikiPageContent);
 

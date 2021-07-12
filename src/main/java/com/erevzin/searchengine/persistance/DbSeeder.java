@@ -1,5 +1,6 @@
 package com.erevzin.searchengine.persistance;
 
+import com.erevzin.searchengine.api.WikiPageDTO;
 import com.erevzin.searchengine.logic.TermIndexer;
 import com.erevzin.searchengine.logic.WikiPageParser;
 import com.erevzin.searchengine.model.WikiPage;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-import javax.annotation.PostConstruct;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,10 +28,9 @@ public class DbSeeder {
 		this.termIndexer = termIndexer;
 	}
 
-	@PostConstruct
 	public void populateWikiPagesDb() {
 		// input file
-		Path ipPath = Paths.get("wiki_data_small_semple.txt");
+		Path ipPath = Paths.get("wiki_data.txt");
 
 		Flux<String> linesFlux = Flux.using(
 				() -> Files.lines(ipPath),
@@ -41,9 +40,9 @@ public class DbSeeder {
 
 		linesFlux
 				.subscribe(i -> {
-					WikiPage wikiPage = wikiPageParser.parseLine(i+"");
+					WikiPageDTO wikiPage = wikiPageParser.parseLine(i+"");
 					List<String> tokens = wikiPageParser.parseTokens(wikiPage.getContent());
-					wikiPageCrudRepository.save(wikiPage);
+					wikiPageCrudRepository.save(new WikiPage(wikiPage.getWikiPageId(), wikiPage.getContent()));
 					tokens.stream().forEach(token -> termIndexer.indexTerm(token, wikiPage.getWikiPageId()));
 					System.out.println(wikiPage.getWikiPageId() + " --- " + wikiPage.getContent());
 

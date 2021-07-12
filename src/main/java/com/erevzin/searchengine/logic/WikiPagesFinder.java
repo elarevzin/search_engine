@@ -1,11 +1,11 @@
 package com.erevzin.searchengine.logic;
 
-import com.erevzin.searchengine.model.WikiPage;
+import com.erevzin.searchengine.api.WikiPageDTO;
 
 import java.util.List;
 
 public interface WikiPagesFinder {
 
-    List<WikiPage> findWikiPages(String query);
+    List<WikiPageDTO> findWikiPages(String query);
 
 }
