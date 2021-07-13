@@ -30,7 +30,7 @@ public class WikiPageCacheLoader {
 	@PostConstruct
 	public void populateWikiPagesCache() {
 		// input file
-		Path ipPath = Paths.get("wiki_data_small_semple.txt");
+		Path ipPath = Paths.get("wiki_data.txt");
 
 		Flux<String> linesFlux = Flux.using(
 				() -> Files.lines(ipPath),
