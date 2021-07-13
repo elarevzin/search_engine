@@ -38,7 +38,7 @@ public class WikiPageCacheAccessor {
         return wikiPagesCache.getUnchecked(wikiPageId);
     }
 
-    public String putIfAbsentInCache(String wikiPageId, String wikiPageContent){
+    public String putIfAbsentInWikiPageCache(String wikiPageId, String wikiPageContent){
         return wikiPagesCache.asMap().putIfAbsent(wikiPageId, wikiPageContent);
     }
 

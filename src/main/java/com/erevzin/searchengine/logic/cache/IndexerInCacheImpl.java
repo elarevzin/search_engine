@@ -31,6 +31,6 @@ public class IndexerInCacheImpl implements IndexerInCache {
 
     @Override
     public void indexWikiPage(String wikiPageId, String wikiPageContent) {
-        wikiPageCacheAccessor.putIfAbsentInCache(wikiPageId, wikiPageContent);
+        wikiPageCacheAccessor.putIfAbsentInWikiPageCache(wikiPageId, wikiPageContent);
     }
 }

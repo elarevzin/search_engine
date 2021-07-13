@@ -43,9 +43,9 @@ class IndexerInCacheImplTest {
     public void test_indexWikiPage() {
         String wikiPageContent = "Johnny Brown (born May 15, 1963)";
         String wikiPageId = "44";
-        when(wikiPageCacheAccessor.putIfAbsentInCache(any(), any())).thenReturn(wikiPageContent);
+        when(wikiPageCacheAccessor.putIfAbsentInWikiPageCache(any(), any())).thenReturn(wikiPageContent);
         indexerInCache.indexWikiPage(wikiPageId, wikiPageContent);
-        verify(wikiPageCacheAccessor, times(1)).putIfAbsentInCache(wikiPageId, wikiPageContent);
+        verify(wikiPageCacheAccessor, times(1)).putIfAbsentInWikiPageCache(wikiPageId, wikiPageContent);
     }
 
 }
