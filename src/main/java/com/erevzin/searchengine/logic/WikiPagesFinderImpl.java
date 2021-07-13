@@ -19,16 +19,11 @@ public class WikiPagesFinderImpl implements WikiPagesFinder {
 
     private final QueryBuilder queryBuilder;
     private final WikiPageCacheAccessor wikiPageCacheAccessor;
-//    private final Cache<String, String> wikiPagesCache;
-//    private final Cache<String, List<String>> termsCache;
-
 
     @Autowired
     public WikiPagesFinderImpl(QueryBuilder queryBuilder, WikiPageCacheAccessor wikiPageCacheAccessor) {
         this.queryBuilder = queryBuilder;
         this.wikiPageCacheAccessor = wikiPageCacheAccessor;
-//        wikiPagesCache = wikiPageCacheAccessor.getWikiPagesCache();
-//        termsCache = wikiPageCacheAccessor.getTermsCache();
     }
 
     public List<WikiPageDTO> findWikiPages(String queryString){

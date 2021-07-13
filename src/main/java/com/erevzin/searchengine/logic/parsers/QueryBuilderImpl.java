@@ -4,6 +4,7 @@ import com.erevzin.searchengine.logic.exceptions.InvalidWikiPageQueryException;
 import com.erevzin.searchengine.model.QueryType;
 import com.erevzin.searchengine.model.WikiPageQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -30,6 +31,12 @@ public class QueryBuilderImpl implements QueryBuilder {
         }
         wikiPageQuery.setQueryTerms(Arrays.asList(spacesPattern.split(queryString))
                 .stream().map(String::toLowerCase).collect(Collectors.toList()));
+
+        if(wikiPageQuery.getQueryType().equals(QueryType.NONE)
+                && !CollectionUtils.isEmpty(wikiPageQuery.getQueryTerms())
+                && wikiPageQuery.getQueryTerms().size() > 1){
+            throw new InvalidWikiPageQueryException(INVALID_QUERY);
+        }
         return wikiPageQuery;
     }
 
