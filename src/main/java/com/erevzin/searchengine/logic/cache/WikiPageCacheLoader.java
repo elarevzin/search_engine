@@ -16,13 +16,11 @@ import java.util.stream.Stream;
 @Service
 public class WikiPageCacheLoader {
 	
-	private final WikiPageCacheProvider wikiPageCacheProvider;
 	private final WikiPageParser wikiPageParser;
 	private final IndexerInCache indexerInCache;
 
 	@Autowired
-	public WikiPageCacheLoader(WikiPageCacheProvider wikiPageCacheProvider, WikiPageParser wikiPageParser, IndexerInCache indexerInCache) {
-		this.wikiPageCacheProvider = wikiPageCacheProvider;
+	public WikiPageCacheLoader(WikiPageParser wikiPageParser, IndexerInCache indexerInCache) {
 		this.wikiPageParser = wikiPageParser;
 		this.indexerInCache = indexerInCache;
 	}
