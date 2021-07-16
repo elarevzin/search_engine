@@ -1,23 +1,24 @@
 package com.erevzin.searchengine.logic.cache;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.logging.log4j.util.Strings.EMPTY;
+
 @Service
 public class WikiPageCacheAccessor {
 
-    private final Cache<String, String> wikiPagesCache;
+    private final LoadingCache<String, String> wikiPagesCache;
 
-    private final Cache<String, List<String>> termsCache;
+    private final LoadingCache<String, List<String>> termsCache;
 
     public WikiPageCacheAccessor() {
         this.termsCache = CacheBuilder.newBuilder()
-                .concurrencyLevel(10)
                 .build(new CacheLoader<>() {
                     @Override
                     public List<String> load(String key) {
@@ -25,7 +26,6 @@ public class WikiPageCacheAccessor {
                     }
                 });
         this.wikiPagesCache = CacheBuilder.newBuilder()
-                .concurrencyLevel(10)
                 .build(new CacheLoader<>() {
                     @Override
                     public String load(String key) {
@@ -35,7 +35,8 @@ public class WikiPageCacheAccessor {
     }
 
     public String getFromWikiPagesCache(String wikiPageId) {
-        return wikiPagesCache.getUnchecked(wikiPageId);
+        String wikiPageContentIfExist = wikiPagesCache.getIfPresent(wikiPageId);
+        return wikiPageContentIfExist == null ? EMPTY : wikiPageContentIfExist;
     }
 
     public String putIfAbsentInWikiPageCache(String wikiPageId, String wikiPageContent){
@@ -43,7 +44,8 @@ public class WikiPageCacheAccessor {
     }
 
     public List<String> getFromTermsCache(String term){
-        return termsCache.getUnchecked(term);
+        List<String> wikiPagesIfExist = termsCache.getIfPresent(term);
+        return wikiPagesIfExist == null ? new ArrayList<>() : wikiPagesIfExist;
     }
 
     public List<String> getFromTermsCacheOrDefaultEmptyList(String token){

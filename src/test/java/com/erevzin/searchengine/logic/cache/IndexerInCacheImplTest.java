@@ -15,12 +15,15 @@ class IndexerInCacheImplTest {
     private IndexerInCache indexerInCache;
     @Mock
     private WikiPageCacheAccessor wikiPageCacheAccessor;
+    @Mock
+    private List<String> excludedTokens = mock(List.class);
+
 
 
     @BeforeEach
     public void init(){
         wikiPageCacheAccessor = mock(WikiPageCacheAccessor.class);
-        indexerInCache = new IndexerInCacheImpl(wikiPageCacheAccessor);
+        indexerInCache = new IndexerInCacheImpl(wikiPageCacheAccessor, excludedTokens);
     }
 
 
